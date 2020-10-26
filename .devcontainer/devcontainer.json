@@ -1,0 +1,60 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.101.1/containers/ubuntu-18.04-git
+{	
+	"name": "Go Linux Dev Container",
+	// Moved from dockerfile to image so it builds faster
+	"image": "xackery/godev:1.12.17",
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+
+	"runArgs": [  ], //"--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"
+    "go.useGoProxyToCheckForToolUpdates": false,
+    "go.useLanguageServer": true,
+    "go.gopath": "/go",
+    "go.goroot": "/usr/local/go",
+    "go.toolsGopath": "/go/bin",
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        },
+        // Optional: Disable snippets, as they conflict with completion ranking.
+        "editor.snippetSuggestions": "none",
+    },
+    "[go.mod]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        },
+    },
+    "gopls": {
+         // Add parameter placeholders when completing a function.
+        "usePlaceholders": true,
+    
+        // If true, enable additional analyses with staticcheck.
+        // Warning: This will significantly increase memory usage.
+        "staticcheck": false,
+    },
+	// Add the IDs of extensions you want installed when the container is created.
+    "extensions": ["alefragnani.bookmarks", 
+        "ms-azuretools.vscode-docker", 
+        "bungcip.better-toml", 
+        "eamodio.gitlens", 
+        "golang.go", 
+        "casualjim.gotemplate", 
+        "ms-vscode.hexeditor",
+        "albymor.increment-selection",
+        "ms-vsliveshare.vsliveshare",
+        "plex.vscode-protolint",
+        "ms-vscode-remote.remote-containers",
+        "vilicvane.sensitive-replace"
+    ],
+	"mounts": ["source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"],
+	"remoteEnv": {
+		"HOST_PROJECT_PATH": "${localWorkspaceFolder}"
+    },
+    "remoteUser": "vscode"
+}
